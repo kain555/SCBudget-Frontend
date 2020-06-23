@@ -1,0 +1,89 @@
+<div id='budgetMoreInfo'>
+  <p-dialog header="More info about this budget" [responsive]="true" showEffect="fade" [modal]="true" [closable]="true"
+    [(visible)]="display">
+    <p>
+      Period: {{period}} <br>
+      Basis name: {{basisName}} <br>
+      Owner name: {{ownerName}} <br>
+      Owner surname: {{ownerSurname}} <br>
+      Comment: {{comment}} <br>
+      Project name: {{projectName}} <br>
+      Total budget: {{TotalBudget[0]}} PLN<br>
+    </p>
+    <p-footer>
+      <div id="budgetTable">
+        <ag-grid-angular style="width: 430px; height: 500px;" class="ag-theme-balham" [rowData]="BudgetLines"
+          [columnDefs]="columnDefs">
+        </ag-grid-angular>
+      </div>
+      <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Ok"
+        class="btn btn-secondary">Hide</button>
+    </p-footer>
+  </p-dialog>
+</div>
+<div id="selectUser">
+<main>
+  <div id="screen">
+  </div>
+  <div id="formularz">
+    <h2>Login page for shopping centre regional director</h2>
+    <h3>Choose your login and click button "Log in"</h3>
+    <form [formGroup]="employee" (ngSubmit)="showBudgets()">
+      <div id="logins"><select formControlName="emp">
+        <option *ngFor="let emp of employees" [value]="emp.employee_id">{{emp.login}}</option>
+      </select>
+    </div>
+      <div id="submitButton">
+        <button type="submit" class="btn btn-dark" id="buttonD">Log in</button>
+      </div>
+    </form>
+      </div>
+  </main>
+  </div>
+
+<div id="tableID" style="display: none;">
+  <h1>Shopping centre director processes</h1>
+  <p-table [value]="cars" dataKey="step">
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col">Process ID</th>
+        <th scope="col">Basis Name</th>
+        <th scope="col">Step</th>
+        <th scope="col">Status</th>
+        <th scope="col">Asigned to(name)</th>
+        <th scope="col">Asigned to(surname)</th>
+        <th scope="col">More info button</th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
+      <tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.step].index === rowIndex">
+        <td colspan="8">
+          <a href="#" [pRowToggler]="rowData">
+            <i [ngClass]="expanded ? 'pi pi-fw pi-chevron-circle-down' : 'pi pi-fw pi-chevron-circle-right'"
+              style="vertical-align: middle;padding-bottom: .1em;"></i>
+            <span>{{rowData.step}}</span>
+          </a>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-rowData let-rowIndex="rowIndex" let-rowData.viewDetails="false">
+      <tr>
+        <td>{{rowData.process_ID}}</td>
+        <td>{{rowData.basis_name}}</td>
+        <td>{{rowData.step}}</td>
+        <td>{{rowData.status}}</td>
+        <td>{{rowData.asigned_to_name}}</td>
+        <td>{{rowData.asigned_to_surname}}</td>
+        <th scope="col"><button class="btn btn-warning" (click)="moreInfo(rowData.budget_ID)">More Info</button></th>
+        <td><button class="btn btn-primary" (click)="accept(rowData.process_ID)">Accept budget</button></td>
+      </tr>
+      <ng-container *ngTemplateOutlet="extensiontemplate; context: rowData"></ng-container>
+    </ng-template>
+  </p-table>
+  <button type="button" (click)="logoff()" id="buttonC" class="btn btn-danger" >Log off</button>
+</div>
+<p-dialog header="Shopping centre director pending budgets" [responsive]="true" [modal]="true" [closable]="true"
+  [(visible)]="display2">
+</p-dialog>
+<p-messages position="bottom-center" [(value)]="msgs"></p-messages>

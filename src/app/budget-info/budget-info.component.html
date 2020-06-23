@@ -1,0 +1,48 @@
+<p-table [columns]="cols" [value]="budgetLines" selectionMode="single" [(selection)]="selectedLine" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
+    <ng-template pTemplate="caption">
+        List of Budget Lines
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:left">
+            <button type="button" class="btn btn-primary" (click)="showDialogToAdd()" label="Add">Add new line</button>
+        </div>
+    </ng-template>    
+</p-table>
+
+
+
+<p-dialog header="Budget line in shopping centre budget" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '900px'}">
+    <form [formGroup]="blines" (ngSubmit)="onSubmit()">
+        <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+            <div class="ui-g-4"><label for="bline">Line name</label></div>
+                <div class="ui-g-8"><select formControlName="bline"><option *ngFor="let line of lines" [value]="line.line_id">{{line.line_name}}</option></select></div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4"><label for="Amount">Insert Amount</label></div>
+                <div class="ui-g-8"><input type="text" class="form-control" formControlName="Amount"></div> 
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </p-footer>
+</form>
+</p-dialog>
+

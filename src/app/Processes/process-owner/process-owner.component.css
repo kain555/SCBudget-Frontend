@@ -1,0 +1,120 @@
+#selectUser {
+    margin-left: 100px;
+}
+h3 {
+    margin-right: 130px;
+    text-align: center;
+}
+#budgetTable {
+    max-width: 800px;
+    min-height: 700px;
+}
+h3 {
+    margin-left: 15%;
+    color: red;
+}
+h2 {
+    margin-top: 60px;
+    color: red;
+}
+label{
+    color: black;
+    font-size: 16px;
+}
+input {
+    font-size:14px;
+    min-width: 745px;
+}
+option, select {
+    font-size: 20px;
+}
+#logins {
+float: left;
+min-width: 200px;
+background-color: 29293d;
+margin-left:33%;
+}
+#submitButton {
+  background-color: floralwhite;
+  max-width: 100px;
+  max-height: 100px;
+  margin-left:46%;
+}
+#saveBudgetLines {
+  margin-left: 45%;
+}
+#screen{
+    background-image: url(src\assets\login.png);
+    min-width: 400px;
+    min-height: 400px;
+    float: left;
+    background-color: #29293d;
+    margin-top: 100px;
+  }
+  #formularz{ 
+    float: left;
+    margin-top:100px;
+    min-height: 400px;
+    background: #29293d;
+  }
+  form {
+    color: white;
+    min-width: 900px;
+    min-height: 250px;
+    padding: 40px;
+  }
+    select {
+      min-width: 30%;
+      text-align: center;
+      align-items: center;
+      font-size: 20px;
+      float: left;
+      min-width: 300px;
+    }
+    form {
+      max-width: 600px;
+    }
+  
+   #invoiceData {
+        height: 200px;
+        width: 50%;
+       float: right;
+    }
+    #invoiceData1 {
+        height: 200px;
+        width: 50%;
+    }
+  
+    #lineData {
+        height: 220px;
+        width: 50%;
+       float: right;
+       padding-top: 20px;
+    }
+    #lineData1 {
+        height: 220px;
+        width: 50%;
+    }
+  #getLines {
+    transform: translateX(40);
+  }
+  main {
+    min-width: 70%;
+    max-height: 70%;
+    max-width: 70%;
+    min-height: 70%;
+    margin-left: 15%;
+    margin-top: 100px;
+  }
+  #buttonC {
+      margin-top: 30px;
+      margin-right: 50px;
+      float: right;
+  }
+  #buttonD {
+    float: left;
+    padding-bottom: 2px;
+    font-size: 18px;
+    transform: translateY(-5px);
+    margin-top: 50px;
+}

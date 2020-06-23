@@ -1,0 +1,99 @@
+<div id="selectUser">
+    <main>
+        <div id="backg">
+      <div id="screen">
+      </div>
+    </div>
+      <div id="formularz">
+        <h2>Login page to Invoice manage system</h2>
+        <h3>Log to system as Director of Shoping Centre</h3>
+        <div id="loginDIR">
+        <form [formGroup]="employee" (ngSubmit)="showDirectorPanel()">
+          <div id="logins"><select formControlName="emp">
+            <option *ngFor="let emp of employees" [value]="emp.employee_id">{{emp.login}}</option>
+          </select>
+        </div>
+          <div id="submitButton">
+            <button type="submit" class="btn btn-dark" id="buttonD">Log in</button>
+          </div>
+        </form>
+    </div>
+        <div id="loginACC">
+            <h4>Log to system as Accountan</h4>
+        <form [formGroup]="employee" (ngSubmit)="showAccPanel()">
+            <div id="logins"><select formControlName="emp">
+              <option *ngFor="let ac of acc" [value]="ac.employee_id">{{ac.login}}</option>
+            </select>
+          </div>
+            <div id="submitButton">
+              <button type="submit" class="btn btn-dark" id="buttonD">Log in</button>
+            </div>
+          </form>
+        </div>
+          </div>
+      </main>
+      </div>
+      
+<div id="tableID" style="display: none;">
+<main>
+<p-table #dt [columns]="cols2" styleClass="ui-table-invoices" [value]="invoices" [paginator]="true" [rows]="10" dataKey="invoice_number" selectionMode="single" [(selection)]="selectedCar">
+    <ng-template pTemplate="caption">
+        List of all Invoices
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+            <td>{{rowData.invoice_number}}</td>
+            <td>{{rowData.invoice_date}}</td>
+            <td>{{rowData.customer}}</td>
+            <td>{{rowData.item_name}}</td>
+            <td>{{rowData.period}}</td>
+            <td>{{rowData.amount}}</td>
+            <td>{{rowData.line_name}}</td>
+            <td>{{rowData.dueDate}}</td>
+            <td>{{rowData.comment}}</td>
+            <td>{{rowData.registered}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+<button type="button" (click)="logoff()" id="buttonC" class="btn btn-danger">Log off</button>
+</main>
+</div>
+
+<div id="tableACC" style="display: none;">
+    <main>
+    <p-table #dt [columns]="cols" styleClass="ui-table-invoices" [value]="invoices" [paginator]="true" [rows]="10" dataKey="invoice_number" selectionMode="single" [(selection)]="selectedCar">
+        <ng-template pTemplate="caption">
+            List of all Invoices
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                <td>{{rowData.invoice_number}}</td>
+                <td>{{rowData.invoice_date}}</td>
+                <td>{{rowData.customer}}</td>
+                <td>{{rowData.item_name}}</td>
+                <td>{{rowData.budgetName}}</td>
+                <td>{{rowData.amount}}</td>
+                <td>{{rowData.line}}</td>
+                <td>{{rowData.dueDate}}</td>
+                <td>{{rowData.comment}}</td>
+                <td><button class="btn btn-info" [disabled]="rowData.registered==1" (click)="register(rowData.invoice_id)">Register this invoice</button></td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <button type="button" (click)="logoff()" id="buttonC" class="btn btn-danger" >Log off</button>
+</main>
+</div>

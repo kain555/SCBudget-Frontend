@@ -1,0 +1,38 @@
+<main>
+  <div id="left">
+    <h1>Add new budget</h1>
+  <div id="screen">
+  </div>
+  </div>
+  <div id="formularz">
+    <form [formGroup]="budget" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label>Basis name</label>
+        <select formControlName="bid">
+          <option *ngFor="let bas of basis" [value]="bas.basis_id">{{bas.comment}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+          <label>Select Director</label>
+          <select formControlName="ownerID">
+              <option *ngFor="let own of owners" [value]="own.employee_id">{{own.login}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+          <label>Select project</label>
+          <select formControlName="project">
+              <option *ngFor="let pro of projects" [value]="pro.project_id">{{pro.project}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Enter budget period, Mask: RRRRMM" formControlName="period">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Add comment" formControlName="comment">
+        </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  </main>
+  <p-messages [(value)]="msgs"></p-messages>

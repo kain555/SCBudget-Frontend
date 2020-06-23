@@ -1,0 +1,143 @@
+<p-dialog header="More info about this budget lines" [responsive]="true" showEffect="fade" [modal]="true"
+  [closable]="true" [(visible)]="display1" [style]="{width: '1300px'}">
+  <p-table [columns]="cols" [value]="budgetLines" selectionMode="single" [(selection)]="selectedLine"
+ [paginator]="true" [rows]="15">
+    <ng-template pTemplate="caption">
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" let-rowData>
+      <div style="text-align:left">
+        <button type="button" class="btn btn-primary" (click)="showDialogToAdd()" label="Add"
+          id="button1">Add new line</button>
+      </div>
+    </ng-template>
+  </p-table>
+  <p-dialog header="Budget line in shopping centre budget" [(visible)]="displayDialog" [focusOnShow]="false"
+    [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '1200px'}">
+    <form [formGroup]="blines" (ngSubmit)="onSubmit()">
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+          <div class="ui-g-4"><label for="bline">Line name</label></div>
+          <div class="ui-g-8"><select formControlName="bline">
+              <option *ngFor="let line of lines" [value]="line.line_id">{{line.line_name}}</option>
+            </select></div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-4"><label for="Amount">Insert Amount</label></div>
+          <div class="ui-g-8"><input type="text" class="form-control" formControlName="Amount"></div>
+        </div>
+      </div>
+      <p-footer>
+        <div id="saveBudgetLines"class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </p-footer>
+    </form>
+  </p-dialog>
+</p-dialog>
+<div id='budgetMoreInfo'>
+  <p-dialog header="More info about this budget" [responsive]="true" showEffect="fade" [modal]="true" [closable]="true"
+    [(visible)]="display">
+    <p>
+      Period: {{period}} <br>
+      Basis name: {{basisName}} <br>
+      Owner name: {{ownerName}} <br>
+      Owner surname: {{ownerSurname}} <br>
+      Comment: {{comment}} <br>
+      Project name: {{projectName}} <br>
+      Total budget: {{TotalBudget[0]}} PLN<br>
+    </p>
+    <p-footer>
+      <div id="budgetTable">
+        <ag-grid-angular style="width: 430px; height: 500px;" class="ag-theme-balham" [rowData]="BudgetLines"
+          [columnDefs]="columnDefs">
+        </ag-grid-angular>
+      </div>
+      <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Ok"
+        class="btn btn-secondary">Hide</button>
+    </p-footer>
+  </p-dialog>
+</div>
+
+<div id="selectUser">
+<main>
+  <div id="screen">
+  </div>
+  <div id="formularz">
+    <h2>Login page for shopping centre director</h2>
+    <h3>Choose your login and click button "Log in"</h3>
+    <form [formGroup]="employee" (ngSubmit)="showBudgets()">
+      <div id="logins"><select formControlName="emp">
+        <option *ngFor="let emp of employees" [value]="emp.employee_id">{{emp.login}}</option>
+      </select>
+    </div>
+      <div id="submitButton">
+        <button type="submit" class="btn btn-dark" id="buttonD">Log in</button>
+      </div>
+    </form>
+      </div>
+  </main>
+  </div>
+
+<div id="tableID" style="display: none;">
+  <h1>Shopping centre director processes</h1>
+  <p-table [value]="cars" dataKey="step">
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col">Process ID</th>
+        <th scope="col">Basis Name</th>
+        <th scope="col">Step</th>
+        <th scope="col">Status</th>
+        <th scope="col">Asigned to(name)</th>
+        <th scope="col">Asigned to(surname)</th>
+        <th scope="col">More info button</th>
+        <th scope="col">Budget lines button</th>
+        <th scope="col">Start process</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
+      <tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.step].index === rowIndex">
+        <td colspan="9">
+          <a href="#" [pRowToggler]="rowData">
+            <i [ngClass]="expanded ? 'pi pi-fw pi-chevron-circle-down' : 'pi pi-fw pi-chevron-circle-right'"
+              style="vertical-align: middle;padding-bottom: .1em;"></i>
+            <span>{{rowData.step}}</span>
+          </a>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-rowData let-rowIndex="rowIndex" let-rowData.viewDetails="false">
+      <tr>
+        <td>{{rowData.process_ID}}</td>
+        <td>{{rowData.basis_name}}</td>
+        <td>{{rowData.step}}</td>
+        <td>{{rowData.status}}</td>
+        <td>{{rowData.asigned_to_name}}</td>
+        <td>{{rowData.asigned_to_surname}}</td>
+        <th scope="col"><button class="btn btn-warning" (click)="moreInfo(rowData.budget_ID)">More Info</button></th>
+        <td><button [disabled]="rowData.status!=='Pending'" class="btn btn-primary" (click)="budgetLineShow(rowData.budget_ID)">Budget lines</button></td>
+        <td><button [disabled]="rowData.step!=='While the director of the shopping centre is filling a budget lines'" class="btn btn-primary" (click)="startProcess(rowData.process_ID)">Start process</button></td>
+      </tr>
+      <ng-container *ngTemplateOutlet="extensiontemplate; context: rowData"></ng-container>
+    </ng-template>
+  </p-table>
+  <button type="button" (click)="logoff()" id="buttonC" class="btn btn-danger" >Log off</button>
+</div>
+<p-dialog header="Shopping centre director pending budgets" [responsive]="true" [modal]="true" [closable]="true"
+  [(visible)]="display2">
+</p-dialog>
+<p-messages position="bottom-center" [(value)]="msgs"></p-messages>

@@ -1,0 +1,74 @@
+*, *:before, *:after{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+}
+.container {
+    max-width: 100%;
+    min-height: 900px;
+}
+header {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background-color:  #29293d;
+    z-index: 1000;
+    width: 100%;
+}
+.logo {
+    float: left;
+    max-width: 700px;
+    min-width: 700px;
+    min-height: 90px;
+    max-height: 90px;
+    margin-top: 5px;
+    margin-left: 30px;
+    background-image: url(../assets/LOGOazwy.png);
+}
+aside {
+    float: right;
+    width: 60%;
+}
+h1 {
+    font-size: 35px;
+    padding: 10px;
+    float: left;
+    color: #29293d;
+    transform: translateX(10%);
+    font-family: 'Baloo Bhai', cursive;
+}
+main {
+    margin-bottom: 40px;
+    text-align: center;
+    float:left;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 800px;
+}
+  button {
+      font-size: 15px;
+      width: 160px;
+      float: left;
+      margin-left: 50px;
+      margin-bottom: 15px;
+  }
+.dropdownBudget
+{
+    margin-top: 50px;
+}
+
+#pageName {
+    width: 65%;
+    float: left;
+}
+
+h2 {
+    color: #29293d;
+    font-family: 'Baloo Bhai', cursive;
+    font-size: 50px;
+    text-align: center;
+    transform: translateX(-10%);
+}

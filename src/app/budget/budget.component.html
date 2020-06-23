@@ -1,0 +1,24 @@
+<h3 class="first">All budgets</h3>
+<p-table #dt1 [columns]="cols" [value]="budget1" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]" dataKey="vin" [resizableColumns]="true" [reorderableColumns]="true"
+    selectionMode="single" [(selection)]="selectedCar1" stateStorage="session" stateKey="statedemo-session">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn pReorderableColumn>
+                {{col.headerName}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+        <tr>
+            <th *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-fluid">
+                <input pInputText type="text" (input)="dt1.filter($event.target.value, col.field, col.filterMatchMode)" [value]="dt1.filters[col.field]?.value">
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
